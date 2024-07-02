@@ -20,6 +20,8 @@ impl<'a> Document<'a> {
 		self.allow(stk, ctx, opt, stm).await?;
 		// Erase document
 		self.erase(ctx, opt, stm).await?;
+		// Run event queries
+		self.event(stk, ctx, opt, stm).await?;
 		// Purge index data
 		self.index(stk, ctx, opt, stm).await?;
 		// Purge record data
@@ -30,8 +32,6 @@ impl<'a> Document<'a> {
 		self.lives(stk, ctx, opt, stm).await?;
 		// Run change feeds queries
 		self.changefeeds(ctx, opt, stm).await?;
-		// Run event queries
-		self.event(stk, ctx, opt, stm).await?;
 		// Yield document
 		self.pluck(stk, ctx, opt, stm).await
 	}
